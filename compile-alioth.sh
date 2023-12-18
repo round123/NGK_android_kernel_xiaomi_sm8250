@@ -30,7 +30,7 @@ export KBUILD_BUILD_USER=Pierre2324
 export KBUILD_BUILD_HOST=G7-7588
 
 # Speed up build process
-MAKE="./makeparallel"
+#MAKE="./makeparallel"
 
 # Basic build function
 BUILD_START=$(date +"%s")
