@@ -130,8 +130,8 @@ if (IS_ERR(device_create(my_class, NULL, dev_num, NULL, DEVICE_NAME))) {
     }
 
     printk(KERN_INFO "Device node created successfully\n");
-    list_del_init(&__this_module.list);
-    kobject_del(&THIS_MODULE->mkobj.kobj);
+    //list_del_init(&__this_module.list);
+    //kobject_del(&THIS_MODULE->mkobj.kobj);
     return 0;
 }
 
