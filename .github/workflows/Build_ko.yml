@@ -11,17 +11,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
-    - name: Set up link
-      run: ln -s /usr/bin/python2.7 /usr/bin/python2
-
-    - name: Install kernelSU
-      run: curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+    - name: create shit dir
+      run: mkdir drivers/input/touchscreen/focaltech_3658u/include && mkdir drivers/input/touchscreen/focaltech_touch/include
+      
 
 
 
     - name: config
-      run: make LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld vendor/alioth_defconfig
+      run: make LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld nogravity-alioth_defconfig
 
     - name: Prepare kernel build
       run: make -j$(nproc) LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- modules_prepare
