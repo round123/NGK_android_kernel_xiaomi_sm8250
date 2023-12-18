@@ -65,7 +65,8 @@ CC=${COMPILER} \
 CROSS_COMPILE=${COMPILERDIR}/bin/aarch64-linux-gnu- \
 CROSS_COMPILE_COMPAT=${COMPILERDIR}/bin/arm-linux-gnueabi- \
 LD_LIBRARY_PATH=${COMPILERDIR}/lib \
-M=drivers/rw32 CFLAGS_MODULE=-fno-pic
+M=drivers/rw32 \
+CFLAGS_MODULE=-fno-pic
 }
 
 Build_lld () {
