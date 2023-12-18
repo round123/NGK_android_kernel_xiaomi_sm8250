@@ -65,7 +65,7 @@ CC=${COMPILER} \
 CROSS_COMPILE=${COMPILERDIR}/bin/aarch64-linux-gnu- \
 CROSS_COMPILE_COMPAT=${COMPILERDIR}/bin/arm-linux-gnueabi- \
 LD_LIBRARY_PATH=${COMPILERDIR}/lib \
-M=drivers/rw32
+M=drivers/rw32 CFLAGS_MODULE=-fno-pic
 }
 
 Build_lld () {
@@ -166,10 +166,10 @@ fi
 # Build starts here
 if [ -z ${LINKER} ]
 then
-    
+    Build_modules_prepare
     Build
 else
-    echo | Build_lld
+    echo 
 fi
 
 if [ $? -ne 0 ]
