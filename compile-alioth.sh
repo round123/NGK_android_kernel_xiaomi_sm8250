@@ -40,6 +40,21 @@ yellow='\033[0;33m'
 red='\033[0;31m'
 nocol='\033[0m'
 
+
+
+Build_modules_prepare () {
+PATH="${COMPILERDIR}/bin:${PATH}" \
+make -j$(nproc --all) O=out \
+ARCH=${ARCH} \
+LLVM=1 \
+LLVM_IAS=1 \
+CC=${COMPILER} \
+CROSS_COMPILE=${COMPILERDIR}/bin/aarch64-linux-gnu- \
+CROSS_COMPILE_COMPAT=${COMPILERDIR}/bin/arm-linux-gnueabi- \
+LD_LIBRARY_PATH=${COMPILERDIR}/lib \
+modules_prepare
+}
+
 Build () {
 PATH="${COMPILERDIR}/bin:${PATH}" \
 make -j$(nproc --all) O=out \
@@ -151,6 +166,7 @@ fi
 # Build starts here
 if [ -z ${LINKER} ]
 then
+    
     Build
 else
     echo | Build_lld
