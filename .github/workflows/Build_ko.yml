@@ -21,12 +21,10 @@ jobs:
     - name: config
       run: make LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld nogravity-alioth_defconfig
 
-    - name: Prepare kernel build
-      run: make -j$(nproc) LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- modules_prepare
 
-    - name: Build specific module
-      run: make -j$(nproc) LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- M=drivers/rw32
-           CFLAGS_MODULE=-fno-pic && cp out/drivers/rw32/Tao.ko .
+
+    - name: build
+      run: bash compile-alioth.sh && cp out/drivers/rw32/Tao.ko .
     - name: Create release
       run: echo "release_name=$(date +v%Y.%m.%d.vv%H.%M)" >> $GITHUB_ENV
 
