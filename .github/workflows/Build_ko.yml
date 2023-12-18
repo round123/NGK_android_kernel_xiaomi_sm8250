@@ -18,10 +18,6 @@ jobs:
       run: bash compile.sh
 
 
-    - name: config
-      run: make LLVM=1 LLVM_IAS=1 O=out ARCH=arm64 SUBARCH=arm64 CC=clang LD=ld.lld nogravity-alioth_defconfig
-
-
 
     - name: build
       run: bash compile-alioth.sh && cp out/drivers/rw32/Tao.ko .
