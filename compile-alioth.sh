@@ -173,34 +173,3 @@ else
     echo 
 fi
 
-if [ $? -ne 0 ]
-then
-    echo "Build failed"
-    rm -rf out/outputs/${PHONE}/*
-else
-    echo "Build succesful"
-    mkdir out/outputs
-    mkdir out/outputs/${PHONE}
-    #cp out/arch/arm64/boot/dts/vendor/qcom/kona-v2.1.dtb out/outputs/${PHONE}/dtb
-    find out/arch/arm64/boot/dts/vendor/qcom/ -name '*.dtb' -exec cat {} + >out/outputs/${PHONE}/dtb
-    cp out/arch/arm64/boot/dtbo.img out/outputs/${PHONE}/dtbo.img
-    cp out/arch/arm64/boot/Image.gz out/outputs/${PHONE}/Image.gz
-    #MIUI dtbo
-    rm out/outputs/${PHONE}/${PHONE}_dtbo-miui.img
-    miui_fix_dimens
-    miui_fix_fps
-    miui_fix_dfps
-    miui_fix_fod
-    echo | Build_lld
-    if [ $? -ne 0 ]
-    then
-        rm out/outputs/${PHONE}/${PHONE}_dtbo-miui.img
-    else
-        cp out/arch/arm64/boot/dtbo.img out/outputs/${PHONE}/${PHONE}_dtbo-miui.img
-    fi
-    git checkout $dts_source/dsi-panel*
-fi
-
-BUILD_END=$(date +"%s")
-DIFF=$(($BUILD_END - $BUILD_START))
-echo -e "$yellow Build completed in $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds.$nocol"
