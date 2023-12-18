@@ -14,7 +14,8 @@ jobs:
     - name: create shit dir
       run: mkdir drivers/input/touchscreen/focaltech_3658u/include && mkdir drivers/input/touchscreen/focaltech_touch/include
       
-
+    - name: prebuild
+      run: bash compile.sh
 
 
     - name: config
