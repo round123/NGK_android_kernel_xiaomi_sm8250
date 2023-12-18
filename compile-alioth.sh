@@ -165,11 +165,7 @@ else
 fi
 
 # Build starts here
-if [ -z ${LINKER} ]
-then
     Build_modules_prepare
     Build
-else
-    echo 
-fi
+
 
