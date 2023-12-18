@@ -30,7 +30,7 @@ export KBUILD_BUILD_USER=Pierre2324
 export KBUILD_BUILD_HOST=G7-7588
 
 # Speed up build process
-#MAKE="./makeparallel"
+MAKE="./makeparallel"
 
 # Basic build function
 BUILD_START=$(date +"%s")
@@ -41,8 +41,7 @@ red='\033[0;31m'
 nocol='\033[0m'
 
 
-
-Build_modules_prepare () {
+Build () {
 PATH="${COMPILERDIR}/bin:${PATH}" \
 make -j$(nproc --all) O=out \
 ARCH=${ARCH} \
@@ -52,10 +51,11 @@ CC=${COMPILER} \
 CROSS_COMPILE=${COMPILERDIR}/bin/aarch64-linux-gnu- \
 CROSS_COMPILE_COMPAT=${COMPILERDIR}/bin/arm-linux-gnueabi- \
 LD_LIBRARY_PATH=${COMPILERDIR}/lib \
-modules_prepare
+Image.gz-dtb dtbo.img
 }
 
-Build () {
+
+Build_modules () {
 PATH="${COMPILERDIR}/bin:${PATH}" \
 make -j$(nproc --all) O=out \
 ARCH=${ARCH} \
@@ -165,7 +165,7 @@ else
 fi
 
 # Build starts here
-    Build_modules_prepare
     Build
+    Build_modules
 
 
