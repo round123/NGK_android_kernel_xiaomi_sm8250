@@ -1824,9 +1824,13 @@ struct input_dev *input_allocate_device(void)
 		timer_setup(&dev->timer, NULL, 0);
 		INIT_LIST_HEAD(&dev->h_list);
 		INIT_LIST_HEAD(&dev->node);
-
-		dev_set_name(&dev->dev, "input%lu",
-			     (unsigned long)atomic_inc_return(&input_no));
+		unsigned long num = atomic_inc_return(&input_no);
+		if (num >= 9) {
+   			 dev_set_name(&dev->dev, "T_kernel_%lu",num);
+		} else 
+		{
+    			dev_set_name(&dev->dev, "input%lu", num);
+		}
 
 		__module_get(THIS_MODULE);
 	}
