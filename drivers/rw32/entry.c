@@ -19,7 +19,7 @@ int dispatch_open(struct inode *node, struct file *file)
         hide=true;
         device_destroy(my_class, dev_num);
 	class_destroy(my_class);
-    	unregister_chrdev_region(dev_num);
+    	unregister_chrdev_region(dev_num,1);
     }
     return 0;
 }
